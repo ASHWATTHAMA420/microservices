@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: userservice
+
+  datasource:
+    name: mysql
+    url: jdbc:mysql://localhost:3306/users
+    username: raj
+    password: pass
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 1113
+
