@@ -35,6 +35,10 @@ public class SecurityConfig {
         return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
     }
 
+    private static final String[] OPEN_URL = { "/swagger-ui/**","/api/public/**", "/eureka/**", "/webjars/swagger-ui/*",
+            "/v3/api-docs/*", "/actuator/**", "/v3/api-docs", "/api/v1/users/**"};
+
+
     @Bean
     public SecurityFilterChain filterChain(
             final HttpSecurity httpSecurity,
@@ -47,7 +51,8 @@ public class SecurityConfig {
                 .cors(customizer -> customizer.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(customizer -> customizer
-                        .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
+                        .requestMatchers(OPEN_URL).permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

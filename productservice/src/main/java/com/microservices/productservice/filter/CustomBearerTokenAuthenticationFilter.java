@@ -66,5 +66,4 @@ public class CustomBearerTokenAuthenticationFilter extends OncePerRequestFilter 
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
-
 }
