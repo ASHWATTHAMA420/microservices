@@ -10,6 +10,7 @@ import com.microservices.productservice.model.product.mapper.ProductEntityToProd
 import com.microservices.productservice.repository.ProductRepository;
 import com.microservices.productservice.service.ProductReadService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductReadServiceImpl implements ProductReadService {
 
     private final ProductRepository productRepository;
@@ -27,7 +29,7 @@ public class ProductReadServiceImpl implements ProductReadService {
 
     @Override
     public Product getProductById(String productId) {
-
+        log.info("Get product by id: Call to database for {}", productId);
         final ProductEntity productEntityFromDB = productRepository
                 .findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException("With given productID = " + productId));
@@ -45,5 +47,14 @@ public class ProductReadServiceImpl implements ProductReadService {
         final List<Product> productDomainModels = listProductEntityToListProductMapper
                 .toProductList(productEntityPage.getContent());
         return CustomPage.of(productDomainModels, productEntityPage);
+    }
+
+    @Override
+    public Product getProductByName(String productName) {
+        log.info("Get product by name: Call to database for {}", productName);
+        final ProductEntity productEntityFromDB = productRepository
+                .findProductEntityByName(productName)
+                .orElseThrow(() -> new ProductNotFoundException("With given productID = " + productName));
+        return productEntityToProductMapper.map(productEntityFromDB);
     }
 }

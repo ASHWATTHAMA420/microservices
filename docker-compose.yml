@@ -86,8 +86,8 @@ services:
       - SECURITY_DB_IP=database
       - SECURITY_DB_PORT=3306
       - spring.datasource.url=jdbc:mysql://localhost:3306/product
-      - spring.datasource.username=${DATABASE_USERNAME}
-      - spring.datasource.password=${DATABASE_PASSWORD}
+      - spring.datasource.username=raj
+      - spring.datasource.password=pass
     depends_on:
       database:
         condition: service_healthy
@@ -132,6 +132,15 @@ services:
         condition: service_healthy
       eurekaserver:
         condition: service_started
+    networks:
+      - security
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
     networks:
       - security
 

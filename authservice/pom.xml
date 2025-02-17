@@ -36,7 +36,6 @@
 		<spring-boot-admin.version>3.3.6</spring-boot-admin.version>
 	</properties>
 	<dependencies>
-
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>

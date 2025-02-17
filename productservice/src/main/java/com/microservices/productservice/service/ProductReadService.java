@@ -7,4 +7,5 @@ import com.microservices.productservice.model.product.dto.request.ProductPagingR
 public interface ProductReadService {
     Product getProductById(final String productId);
     CustomPage<Product> getProducts(final ProductPagingRequest productPagingRequest);
+    Product getProductByName(final String productName);
 }
